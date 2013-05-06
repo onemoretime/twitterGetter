@@ -1,0 +1,8 @@
+[config]
+verbose = 0
+[database]
+host = <database hostname>
+port = <database port>
+dbname = <database name>
+dbuser = <database username>
+passwd = <database password>
