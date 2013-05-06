@@ -1,0 +1,8 @@
+CdC.txt
+*.pyc
+*.mwb*
+ModulesExternes
+.settings
+.pydevproject
+.project
+setup.cfg
