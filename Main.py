@@ -32,12 +32,13 @@ and avoid multiple downloads.
 
 
 
-def fetchTwitts(username):
+def fetchTwitts(username,lastid=None):
     
     database, options = get_setup()
     option_verbose = enabled(options, 'verbose')
     
     twitterUserName = username
+    max_id=lastid
     
     twits = twitterGetter.twitterGetter()
     
@@ -45,7 +46,7 @@ def fetchTwitts(username):
     
     twits.screen_name = twitterUserName
     
-    twits.get(twitterUserName)
+    twits.get(twitterUserName,max_id)
 
     return twits.n_tweets
 
@@ -68,13 +69,15 @@ def enabled(options, option):
     else:
         raise ValueError("Unknown value %s for option %s" % (value, option))
 
-def main():
-    
-    if len(sys.argv) != 2:
-        print(usage)
+def main(args=sys.argv[1:]):
+    if not args:
+        print("Error: Not enough args")
         return 1
-     
-    tweets_count = fetchTwitts(sys.argv[1])
+    if args[1:]:
+        max_id = args[1]
+    else:
+        max_id = None   
+    tweets_count = fetchTwitts(sys.argv[1],max_id)
     print("tweets_count:",tweets_count)
     return 0
     
