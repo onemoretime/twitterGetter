@@ -162,6 +162,10 @@ class twitterGetter:
             max_id = tweet['id']
             n_tweets += 1
             x.close()
+        
+        x = conn.cursor()
+        x.execute("UPDATE TwitterUserName SET TwitterUserNameLastTweetID=%s WHERE idxTwitterUserName=%s" , (int(max_id),int(strUserInTreatment[0])))
+        conn.commit()            
         conn.close()
         if self.debug:
             print ("Returned args :")
