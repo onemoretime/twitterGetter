@@ -5,7 +5,6 @@ from __future__ import print_function
 import sys
 import time
 from ConfigParser import SafeConfigParser
-from setuptools import setup, Extension
 
 import twitterGetter
 
