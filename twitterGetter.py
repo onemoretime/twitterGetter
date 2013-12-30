@@ -13,16 +13,14 @@ import _mysql_exceptions
 
 from twitter.api import Twitter, TwitterError
 from twitter.cmdline import CONSUMER_KEY, CONSUMER_SECRET
-from twitter.auth import NoAuth
+from twitter.oauth import OAuth
 from twitter.util import printNicely
 
 class twitterGetter:
 
-    def __init__(self):
-        self.twitter = Twitter(
-            auth=NoAuth(),
-            api_version='1',
-            domain='api.twitter.com')
+    def __init__(self,oauth_token,oauth_token_secret, CONSUMER_KEY,CONSUMER_SECRET):
+
+        self.twitter = Twitter(auth=OAuth(oauth_token, oauth_token_secret, CONSUMER_KEY, CONSUMER_SECRET),api_version='1.1',domain='api.twitter.com')
         self.screen_name=""
         self.max_id=None
         self.n_tweets = 0
@@ -130,7 +128,12 @@ class twitterGetter:
             sys.exit()
 
 
-        tweets = twitter.statuses.user_timeline(**kwargs)
+        try:
+            tweets = twitter.statuses.user_timeline(**kwargs)
+        except TwitterError, e:
+            print("Unable to fetch twitts: %s" % e)
+            conn.close()
+            sys.exit()
 
         for tweet in tweets:
             if tweet['id'] == max_id:

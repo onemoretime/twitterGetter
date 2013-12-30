@@ -1,5 +1,10 @@
 [config]
 verbose = 0
+[twitter_credentials]
+oauth_token=<oauth_token>
+oauth_secret=<oauth_secret>
+consumer=<token>
+consumer_secret=<mysecrettoken>
 [database]
 host = <database hostname>
 port = <database port>
